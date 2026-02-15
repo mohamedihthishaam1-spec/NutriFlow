@@ -2,9 +2,15 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { UserProfile, PersonalizedPlan } from "../types.ts";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// The process.env.API_KEY is injected by the platform. 
+// We use a fallback empty string to prevent the constructor from throwing if undefined during initial load.
+const ai = new GoogleGenAI({ apiKey: process.env?.API_KEY || "" });
 
 export const generatePlan = async (profile: UserProfile): Promise<PersonalizedPlan> => {
+  if (!process.env?.API_KEY) {
+    throw new Error("API Key is missing. Please ensure your environment variables are configured.");
+  }
+
   const prompt = `Generate a detailed, holistic diet and life plan for a ${profile.age}-year-old ${profile.gender} who weighs ${profile.weight}kg, is ${profile.height}cm tall, has a ${profile.activityLevel} lifestyle, and goals focused on ${profile.goal}. Dietary restrictions: ${profile.dietaryRestrictions.join(', ') || 'None'}.`;
 
   const response = await ai.models.generateContent({
