@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { PersonalizedPlan } from '../types';
+import { PersonalizedPlan } from '../types.ts';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 interface DietDashboardProps {

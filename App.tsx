@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import Hero from './components/Hero';
-import PlanForm from './components/PlanForm';
-import DietDashboard from './components/DietDashboard';
-import { UserProfile, PersonalizedPlan } from './types';
-import { generatePlan } from './services/geminiService';
+import Hero from './components/Hero.tsx';
+import PlanForm from './components/PlanForm.tsx';
+import DietDashboard from './components/DietDashboard.tsx';
+import { UserProfile, PersonalizedPlan } from './types.ts';
+import { generatePlan } from './services/geminiService.ts';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
