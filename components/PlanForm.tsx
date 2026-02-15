@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { UserProfile, ActivityLevel, Goal } from '../types';
+import { UserProfile, ActivityLevel, Goal } from '../types.ts';
 
 interface PlanFormProps {
   onSubmit: (profile: UserProfile) => void;

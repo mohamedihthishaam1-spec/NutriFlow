@@ -1,16 +1,23 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 import { UserProfile, PersonalizedPlan } from "../types.ts";
 
-// The process.env.API_KEY is injected by the platform. 
-// We use a fallback empty string to prevent the constructor from throwing if undefined during initial load.
-const ai = new GoogleGenAI({ apiKey: process.env?.API_KEY || "" });
+// Safe access to API KEY from window.process shim or direct environment
+const getApiKey = () => {
+    try {
+        return process.env?.API_KEY || (window as any).process?.env?.API_KEY || "";
+    } catch {
+        return "";
+    }
+};
 
 export const generatePlan = async (profile: UserProfile): Promise<PersonalizedPlan> => {
-  if (!process.env?.API_KEY) {
-    throw new Error("API Key is missing. Please ensure your environment variables are configured.");
+  const apiKey = getApiKey();
+  
+  if (!apiKey) {
+    throw new Error("API Key is missing. Please check your environment variables.");
   }
 
+  const ai = new GoogleGenAI({ apiKey });
   const prompt = `Generate a detailed, holistic diet and life plan for a ${profile.age}-year-old ${profile.gender} who weighs ${profile.weight}kg, is ${profile.height}cm tall, has a ${profile.activityLevel} lifestyle, and goals focused on ${profile.goal}. Dietary restrictions: ${profile.dietaryRestrictions.join(', ') || 'None'}.`;
 
   const response = await ai.models.generateContent({
@@ -21,7 +28,7 @@ export const generatePlan = async (profile: UserProfile): Promise<PersonalizedPl
       responseSchema: {
         type: Type.OBJECT,
         properties: {
-          dailySummary: { type: Type.STRING, description: "A high-level overview of the plan." },
+          dailySummary: { type: Type.STRING },
           macroTargets: {
             type: Type.OBJECT,
             properties: {
