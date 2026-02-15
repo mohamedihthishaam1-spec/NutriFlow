@@ -1,0 +1,7 @@
+{
+  "name": "NutriFlow - Holistic Diet & Growth Planner",
+  "description": "A sophisticated wellness companion that crafts personalized nutritional plans, daily routines, and habit trackers to foster physical health and personal growth.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
