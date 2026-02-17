@@ -2,38 +2,29 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 
-console.log("NutriFlow: Application starting...");
+console.log("NutriFlow: Booting application...");
 
-const startApp = () => {
-  const rootElement = document.getElementById('root');
+const container = document.getElementById('root');
 
-  if (!rootElement) {
-    console.error("NutriFlow: Root element '#root' not found.");
-    return;
-  }
+if (!container) {
+  throw new Error("Failed to find the root element. Ensure index.html contains <div id='root'></div>");
+}
 
-  try {
-    const root = createRoot(rootElement);
-    root.render(
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    );
-    console.log("NutriFlow: Render complete.");
-  } catch (err) {
-    console.error("NutriFlow: Critical render error:", err);
-    rootElement.innerHTML = `
-      <div style="padding: 2rem; color: #b91c1c; font-family: sans-serif;">
-        <h2>Application failed to load</h2>
-        <pre>${err instanceof Error ? err.stack : String(err)}</pre>
-      </div>
-    `;
-  }
-};
-
-// Ensure DOM is ready if script isn't deferred (though module is deferred by default)
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', startApp);
-} else {
-  startApp();
+try {
+  const root = createRoot(container);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+  console.log("NutriFlow: Application rendered successfully.");
+} catch (error) {
+  console.error("NutriFlow: Critical mounting error:", error);
+  container.innerHTML = `
+    <div style="padding: 40px; text-align: center; font-family: sans-serif;">
+      <h1 style="color: #ef4444; font-size: 24px;">Application Startup Error</h1>
+      <p style="color: #64748b; margin-top: 10px;">The application failed to initialize properly in your browser.</p>
+      <pre style="margin-top: 20px; background: #f1f5f9; padding: 20px; border-radius: 8px; font-size: 12px; display: inline-block; text-align: left;">${error instanceof Error ? error.message : String(error)}</pre>
+    </div>
+  `;
 }

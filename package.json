@@ -4,12 +4,16 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "@google/genai": "^1.41.0",
-    "recharts": "^2.15.0"
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "@google/genai": "1.41.0",
+    "recharts": "2.15.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "scripts": {
-    "build": "echo 'No build step required for pure ESM'"
+    "start": "echo 'Run locally by serving the root directory.'",
+    "build": "echo 'Build skipped: Using browser-native ESM modules.'"
   }
 }
