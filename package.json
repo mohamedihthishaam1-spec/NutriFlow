@@ -3,17 +3,22 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "dependencies": {
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "@google/genai": "1.41.0",
-    "recharts": "2.15.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "scripts": {
-    "start": "echo 'Run locally by serving the root directory.'",
-    "build": "echo 'Build skipped: Using browser-native ESM modules.'"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@google/genai": "^1.41.0",
+    "recharts": "^2.15.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3"
   }
 }
